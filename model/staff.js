@@ -7,6 +7,11 @@ const StaffSchema=new mongoose.Schema({
     trim:true,
     maxLength:50
   },
+  staffID:{
+    type:String,
+    required:true,
+    maxLength:10
+  },
   age:{
     type:String,
     required:true,

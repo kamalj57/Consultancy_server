@@ -13,6 +13,11 @@ const ProductSchema=new mongoose.Schema({
     maxLength:30,
     trim:true
   },
+  productID:{
+    type:String,
+    required:true,
+    maxLength:10
+  },
   date:{
     type:String,
     required:true

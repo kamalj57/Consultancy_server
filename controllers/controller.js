@@ -4,10 +4,11 @@ const ProductSchema = require('../model/product')
 
 //add new product entry in the product table
 const addproduct= async(req,res)=>{
-    const {productname,description,date,category,costperunit,totalstock,totalamount}=req.body;
+    const {productname,description,productID,date,category,costperunit,totalstock,totalamount}=req.body;
     const product= ProductSchema({
       productname,
       description,
+      productID,
       date,
       category,
       costperunit,
@@ -41,9 +42,10 @@ const getproduct= async(req,res)=>{
 
 //add new staff entry in the staff table
 const addstaff= async(req,res)=>{
-  const {staffname,age,gender,contact}=req.body;
+  const {staffname,staffID,age,gender,contact}=req.body;
   const staff=StaffSchema({
     staffname,
+    staffID,
     age,
     gender,
     contact
@@ -73,7 +75,37 @@ const getstaff= async(req,res)=>{
 
 }
 
+const deletestaff=async(req,res)=>{
+  const {id}=req.params;
+  try {
+    StaffSchema.findByIdAndDelete(id)
+       .then((income)=>{
+        res.status(200).json({message:"Staff Deleted"})
+       })
+       .catch((err)=>{
+        res.status(500).json({message:"Server error!"})
+       }) 
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+const deleteproduct=async(req,res)=>{
+  const {id}=req.params;
+  try {
+    ProductSchema.findByIdAndDelete(id)
+       .then((income)=>{
+        res.status(200).json({message:"Product Deleted"})
+       })
+       .catch((err)=>{
+        res.status(500).json({message:"Server error!"})
+       }) 
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+}
 
 
 
-module.exports={addproduct,getproduct,addstaff,getstaff};
+
+module.exports={addproduct,getproduct,addstaff,getstaff,deletestaff,deleteproduct};
